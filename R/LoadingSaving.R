@@ -65,6 +65,8 @@ saveAndromeda <- function(andromeda, fileName, maintainConnection = FALSE, overw
     abort(sprintf("The directory '%s' does not exist. Andromeda object cannot be saved", dirname(fileName)))
   }  
   
+  ParallelLogger::logDebug("Saving Andromeda at ", andromeda@dbname)
+  
   # Need to save any user-defined attributes as well:
   attribs <- attributes(andromeda)
   for (name in slotNames(andromeda)) {

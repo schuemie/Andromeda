@@ -132,6 +132,7 @@ copyAndromeda <- function(andromeda) {
   andromeda <- RSQLite::dbConnect(RSQLite::SQLite(),
                                   tempfile(tmpdir = tempFolder, fileext = ".sqlite"),
                                   extended_types = TRUE)
+  ParallelLogger::logDebug("Opening Andromeda at ", andromeda@dbname)
   class(andromeda) <- "Andromeda"
   attr(class(andromeda),"package") <- "Andromeda"
   finalizer <- function(ptr) {
@@ -438,6 +439,7 @@ isValidAndromeda <- function(x) {
 #' @rdname
 #' Andromeda-class
 setMethod("close", "Andromeda", function(con, ...) {
+  ParallelLogger::logDebug("Closing Andromeda at ", andromeda@dbname)
   fileName <- con@dbname
   if (RSQLite::dbIsValid(con)) {
     RSQLite::dbDisconnect(con)
